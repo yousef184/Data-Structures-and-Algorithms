@@ -10,14 +10,15 @@ class BinaryTree:
     def __init__(self):
         self.root =None
     
-    def insert(self,node):
+    def insert(self,item):
+        node = BinaryTreeNode(item)
         if self.root == None:
             self.root = node
             return
         if self.search(node.item):
             print("element already exists")
             return 0
-        parent = self.root
+        parent = self.root 
         self.traverese(node,parent)
 
     def traverese(self,node,parent):
@@ -59,10 +60,15 @@ class BinaryTree:
         print(parent.item)
 
 
-    def delete(self,node):
+    def delete(self,item):
+        node = self.search(item)
+        # print(node.item)
         if node.right:
             if node.left:
-                self.find_max(node)
+                max = self.find_max(node.left)
+                temp = max.item
+                self.delete_node(max)
+                node.item = temp
             else:
                 node.item = node.right.item
                 node.right =None
@@ -70,16 +76,40 @@ class BinaryTree:
             node.item = node.left.item
             node.left =None
         else:
+            # print(node.item)
             self.delete_node(node)
         pass
 
-    def delete_node(self, node):
-        
+    def delete_node(self,node):
+        parent = self.get_parent(node,self.root)
+        # print(parent.item)
+        if parent:    
+            if parent.left == node:
+                parent.left = None
+            elif parent.right == node:
+                parent.right = None
 
+    def get_parent(self,node,parent):
+        if node.item > parent.item:
+            if parent.right:
+                if node.item != parent.right.item:
+                    result = self.get_parent(node, parent.right)
+                else:
+                    result = parent
+        elif node.item < parent.item:
+            if parent.left:
+                if node.item != parent.left.item:
+                    result = self.get_parent(node, parent.left)
+                else:
+                    result = parent
+        return result
 
     def find_max(self,node):
-        if parent == None:
-        pass
+        if node.right:
+            result = self.find_max(node.right)
+        else:
+            result = node
+        return result
         
     
     def search(self,item):
@@ -95,31 +125,21 @@ class BinaryTree:
             elif item > parent.item:
                 result = self.search_recursive(parent.right, item)
             else:
-                result = True
+                result = parent
             return result
+        
+    def re(self):
+        return 3
 
 tree = BinaryTree()
-a = BinaryTreeNode(1)
-b = BinaryTreeNode(2)
-c = BinaryTreeNode(-1)
-d = BinaryTreeNode(-2)
-e = BinaryTreeNode(0.5)
-f = BinaryTreeNode(1.5)
-g = BinaryTreeNode(3)
-tree.insert(a)
-tree.insert(b)
-tree.insert(c)
-tree.insert(d)
-tree.insert(e)
-tree.insert(f)
-tree.insert(g)
-# print(tree.search(-2))
-# if():
-#     print("Not found")
-
-
-# tree.delete(f)
+tree.insert(1)
+tree.insert(2)
+tree.insert(-1)
+tree.insert(-2)
+tree.insert(0.5)
+tree.insert(1.5)
+tree.insert(3)
+tree.delete(2)
 
 tree.print()
-# print(a.right.item)
 
