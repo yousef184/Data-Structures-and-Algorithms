@@ -1,11 +1,13 @@
 #log(n)
+from t_dec import tik
 
+@tik
 def binary_search(array,number):
     r = len(array) -1
     l = 0
     while l<=r:
         m = (l+r)//2
-        print(m)
+        # print(m)
         if number > array[m]:
             l = m+1
         elif number < array[m]:
