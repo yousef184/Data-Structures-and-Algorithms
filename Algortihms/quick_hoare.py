@@ -1,11 +1,7 @@
-def quick_sort(array,low,high):
-    if low<high:
-    return array
-
-def hoare(array,low,high):
+def hoare(array):
     i= 0
     j= len(array)-1
-    pivot = array[pivotidx]
+    pivot = array[0]
     while i<j:
         while array[i] < pivot:
             i+=1
@@ -13,9 +9,9 @@ def hoare(array,low,high):
             j-=1
         
         array[i] , array[j] = array[j], array[i]
-    return j 
+    return array
 
 
 array = [7,1,4,6,5,8,9]
-array = quick_sort(array,0,len(array)-1)
+array = quick_sort(array)
 print(array)
